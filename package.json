@@ -1,0 +1,21 @@
+{
+  "name": "remixicon-swift",
+  "version": "1.0.0",
+  "description": "",
+  "main": "update.mjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "chmod u+x ./update.mjs",
+    "start": "node ./update.mjs"
+  },
+  "keywords": [],
+  "author": "YoRolling",
+  "license": "MIT",
+  "engines": {
+    "node": ">=21.6.2"
+  },
+  "dependencies": {
+    "ora": "^8.0.1",
+    "zx": "^7.2.3"
+  }
+}
