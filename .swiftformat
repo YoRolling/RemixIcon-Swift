@@ -1,0 +1,2 @@
+--disable blankLineAfterImports,blankLinesBetweenChainedFunctions
+--commas inline
