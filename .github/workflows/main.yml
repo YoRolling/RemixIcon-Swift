@@ -3,7 +3,8 @@ name: 'Sync Release'
 on:
   schedule:
     - cron: '0 0 * * *'
-
+env:
+  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 jobs:
   sync:
     runs-on: ubuntu-latest
