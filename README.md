@@ -2,7 +2,10 @@
 
 ![License](https://img.shields.io/badge/license-MIT-green)
 
-`RemixIcon-swift` is a Swift package that extends the usage of [RemixIcon](https://remixicon.com/) icons for your iOS, macOS, and SwiftUI projects. It provides over 1000+ unique SVG icons designed on a 24x24 pixels grid, allowing you to easily use them in your app projects.
+`RemixIcon-swift` is a Swift package that extends the usage of [RemixIcon](https://remixicon.com/) icons for your iOS, macOS, and SwiftUI projects. 
+
+> Remix Icon is a set of open-source neutral-style system symbols for designers and developers. Unlike a patchwork icon library, 2800+ icons are all elaborately crafted so that they are born with the genes of readability, consistency, and perfect pixels. Each icon was designed in "Outlined" and "Filled" styles based on a 24x24 grid. Of course, all the icons are free for both personal and commercial use.  
+> 
 
 ## Features
 
