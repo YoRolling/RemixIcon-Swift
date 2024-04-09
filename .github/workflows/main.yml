@@ -44,6 +44,15 @@ jobs:
 
       - name: Run update script
         run: node update.mjs
+      - name: Commit files
+        run: |
+          git config --local user.email 'github-actions[bot]@users.noreply.github.com'
+          git config --local user.name "github-actions[bot]"
+          git add .
+          git commit -m "Release Version ${{ needs.sync.outputs.release_tag }}"
+          git push
+          git tag ${{ needs.sync.outputs.release_tag }}
+          git push origin ${{ needs.sync.outputs.release_tag }}
       - name: Create Release
         id: create_release
         env:
