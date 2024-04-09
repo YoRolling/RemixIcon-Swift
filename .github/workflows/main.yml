@@ -12,14 +12,14 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       release_tag: ${{ steps.fetch_release.outputs.release_tag }}
-      release_body: ${{ steps.fetch_release.outputs.release_body }}
+      release_body: ${{ steps.fetch_release_body.outputs.release_body }}
     steps:
       - name: Sync Release
         id: fetch_release
         run: echo "release_tag=$(gh release list -R Remix-Design/RemixIcon  -L 1  --json tagName  -q ".[].tagName")" >> $GITHUB_OUTPUT
       - name: Fetch Release Body
         id: fetch_release_body
-        run: echo "release_body=$(gh release list -R Remix-Design/RemixIcon  -L 1  --json body  -q ".[].body")" >> $GITHUB_OUTPUT
+        run: echo "release_body=$(gh release view  -R Remix-Design/RemixIcon --json  body -q '.body')" >> $GITHUB_OUTPUT
   check:
     runs-on: ubuntu-latest
     needs: sync
@@ -29,17 +29,17 @@ jobs:
     steps:
       - name: Check
         id: check
-        run: echo "current_tag=$(gh release list -L 1  --json tagName  -q ".[].tagName")" >> $GITHUB_OUTPUT
+        run: echo "current_tag=$(gh release list -R YoRolling/RemixIcon-Swift  -L 1  --json tagName  '-q .[].tagName')" >> $GITHUB_OUTPUT
   MakeRelease:
     runs-on: ubuntu-latest
     needs: [sync, check]
     if: ${{ needs.check.outputs.current_tag != needs.sync.outputs.release_tag }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Install Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
           node-version: '21'
 
@@ -50,13 +50,8 @@ jobs:
         run: node update.mjs
       - name: Create Release
         id: create_release
-        uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ needs.sync.outputs.release_tag }}
-          release_name: ${{ needs.sync.outputs.release_tag }}
-          title: ${{ needs.sync.outputs.release_tag }}
-          body: ${{ needs.sync.outputs.release_body }}
-          draft: false
-          prerelease: false
+        run: |
+          gh release create ${{ needs.sync.outputs.release_tag }} --title ${{ needs.sync.outputs.release_tag }} --notes ${{ needs.sync.outputs.release_body }}
+        
