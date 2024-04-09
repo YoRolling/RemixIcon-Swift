@@ -16,10 +16,10 @@ jobs:
     steps:
       - name: Sync Release
         id: fetch_release
-        run: echo $(gh release list -R Remix-Design/RemixIcon  -L 1  --json tagName  -q ".[].tagName") >> $GITHUB_OUTPUT
+        run: echo "release_tag=$(gh release list -R Remix-Design/RemixIcon  -L 1  --json tagName  -q ".[].tagName")" >> $GITHUB_OUTPUT
       - name: Fetch Release Body
         id: fetch_release_body
-        run: echo $(gh release list -R Remix-Design/RemixIcon  -L 1  --json body  -q ".[].body") >> $GITHUB_OUTPUT
+        run: echo "release_body=$(gh release list -R Remix-Design/RemixIcon  -L 1  --json body  -q ".[].body")" >> $GITHUB_OUTPUT
   check:
     runs-on: ubuntu-latest
     needs: sync
@@ -29,7 +29,7 @@ jobs:
     steps:
       - name: Check
         id: check
-        run: echo $(gh release list -L 1  --json tagName  -q ".[].tagName") >> $GITHUB_OUTPUT
+        run: echo "current_tag=$(gh release list -L 1  --json tagName  -q ".[].tagName")" >> $GITHUB_OUTPUT
   MakeRelease:
     runs-on: ubuntu-latest
     needs: [sync, check]
